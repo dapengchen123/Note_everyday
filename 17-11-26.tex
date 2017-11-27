@@ -1,0 +1,85 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage{cvpr}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{bm}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage[font=small]{caption}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+
+% Include other packages here, before hyperref.
+
+% If you comment hyperref and then uncomment it, you should delete
+% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
+% run, let it finish, and you should be clear).
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+ \cvprfinalcopy % *** Uncomment this line for the final submission
+
+\def\cvprPaperID{1036} % *** Enter the CVPR Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+\ifcvprfinal\pagestyle{empty}\fi
+\begin{document}
+
+%%%%%%%%% TITLE
+\title{Reinforcement Learning Gradient Notes}
+
+
+\maketitle
+%\thispagestyle{empty}
+
+%%%%%%%%% ABSTRACT
+
+
+\section{Gradient of Reinforcement learning}
+
+Reinforcement Loss:
+\begin{equation}
+L(\theta) = -\mathbb{E}_{w^{s} \sim p_{\theta}}[r(w^{s})],
+\end{equation}
+The gradient of $L(\theta)$ is :
+
+
+\begin{equation}
+\nabla_{\theta} L(\theta)  =  - \mathbb{E}_{w^{s} \sim p_{\theta}} [r(w^{s}) \nabla_{\theta} \log p_{\theta}(w^{s}) ]
+\end{equation}
+Reward can be associated with a baseline:
+
+\textbf{Why?}
+
+
+With baseline,
+
+the gradient will not be affected:
+\begin{equation}
+\nabla_{\theta} L(\theta)  =  - \mathbb{E}_{w^{s} \sim p_{\theta}} [(r(w^{s})-b) \nabla_{\theta} \log p_{\theta}(w^{s}) ]
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+{\small
+\bibliographystyle{ieee}
+\bibliography{video-reid}
+}
+
+\end{document}
