@@ -67,13 +67,62 @@ the gradient will not be affected:
 \nabla_{\theta} L(\theta)  =  - \mathbb{E}_{w^{s} \sim p_{\theta}} [(r(w^{s})-b) \nabla_{\theta} \log p_{\theta}(w^{s}) ]
 \end{equation}
 
+Change to the approximate version.
+
+\begin{equation}
+\nabla_{\theta} L(\theta)  \approx  - (r(w^{s})-b) \nabla_{\theta} \log p_{\theta}(w^{s})
+\end{equation}
+
+
+Suppose the $w^{s} = [w^{s}_{1} ,w^{s}_{2} ,w^{s}_{3} , ..., w^{s}_{T} ]$ is the sampled sentence and $a = [a_{1} ,a_{2} ,a_{3} , ..., a_{T} ]$ is the vector before the softmax operation.
+
+The gradient $\nabla_{\theta} L(\theta)$ can be firstly decreased as:
+
+\begin{equation}
+\nabla_{\theta} L(\theta)  = \sum_{t=1}^{T} \frac{\partial L(\theta)}{\partial a_{t}} \frac{\partial a_{t}}{\partial \theta}
+\end{equation}
+
+
+Suppose $ w_{t}^{s}$ corresponds to the $j$th of the total $L$ words, the gradient ${\partial L(\theta)}/{\partial a_{t}} $ is a vector:
+\begin{equation}
+  \frac{\partial L(\theta)}{\partial a_{t}} = [ \cdot \cdot \cdot \frac{\partial L(\theta) }{ \partial a_{t,j} } \cdot \cdot \cdot]
+\end{equation}
+
+
+We have the following gradients:
+
+
+\begin{equation}
+\frac{\partial L(\theta) }{ \partial a_{t} } \approx - (r(w^{s}) -b) \frac{\partial \log p_{\theta}(w^{s})}{ \partial a_{t} } 
+\end{equation}
+
+Correspondingly, $\frac{\partial \log p_{\theta}(w^{s})}{ \partial a_{t} } $ is also a vector:
+
+
+As we have 
+\begin{equation}
+       p_{\theta}(w^{s}) =  \frac{ \exp(a_{t,j}) }{ \sum_{i=1}  \exp(a_{t,i}) }
+\end{equation} 
 
 
 
 
+\begin{equation}
+ \frac{\partial \log p_{\theta}(w^{s})}{ \partial a_{t,j} } =  p_{\theta}(w^{s}) (1 - p_{\theta, j}(w))
+\end{equation}
 
+or else 
 
+\begin{equation}
+ \frac{\partial \log p_{\theta}(w^{s})}{ \partial a_{t,j} } =  - p_{\theta}(w^{s}) p_{\theta, i}(w)
+\end{equation}
 
+In summary, the gradient $ \frac{\partial \log p_{\theta}(w^{s})}{ \partial a_{t,j} }$ can be written as:
+
+\begin{equation}
+ \frac{\partial \log p_{\theta}(w^{s})}{ \partial a_{t} } =  - p_{\theta}(w^{s})(p_{\theta}(w) - 1_{w^{s}})
+\end{equation} 
+where $- 1_{w^{s}}$ means it takes $1$ at position where $w_{s}$ takes the value.
 
 
 
